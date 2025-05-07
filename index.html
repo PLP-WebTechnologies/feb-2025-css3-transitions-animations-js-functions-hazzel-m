@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Interactive Webpage</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      background-color: teal;
+      transition: transform 0.5s, background-color 0.5s;
+    }
+
+    .box.animate {
+      transform: scale(1.5) rotate(180deg);
+      background-color: tomato;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animated-text {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #usernameDisplay {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CSS3 Animation & JavaScript Interactivity</h1>
+
+  <div class="box" id="animatedBox"></div>
+
+  <button onclick="triggerAnimation()">Trigger Animation</button>
+  <button onclick="storeUsername()">Store Username</button>
+
+  <div id="usernameDisplay"></div>
+
+  <script>
+    // Trigger CSS animation class
+    function triggerAnimation() {
+      const box = document.getElementById('animatedBox');
+      box.classList.toggle('animate');
+
+      const message = document.createElement('div');
+      message.textContent = "Animation triggered!";
+      message.className = "animated-text";
+      document.body.appendChild(message);
+    }
+
+    // Store and retrieve data using localStorage
+    function storeUsername() {
+      let name = prompt("Enter your name:");
+      if (name) {
+        localStorage.setItem("username", name);
+        displayUsername();
+      }
+    }
+
+    function displayUsername() {
+      const savedName = localStorage.getItem("username");
+      if (savedName) {
+        document.getElementById("usernameDisplay").textContent = `Welcome back, ${savedName}!`;
+      }
+    }
+
+    // Show username if stored on load
+    window.onload = displayUsername;
+  </script>
+</body>
+</html>
